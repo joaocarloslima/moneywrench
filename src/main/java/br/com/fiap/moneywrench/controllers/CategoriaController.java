@@ -19,6 +19,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import br.com.fiap.moneywrench.model.Categoria;
 import br.com.fiap.moneywrench.repository.CategoriaRepository;
+import jakarta.validation.Valid;
 
 @RestController
 public class CategoriaController {
@@ -32,11 +33,12 @@ public class CategoriaController {
 
     @GetMapping("/categorias")
     public List<Categoria> index() {
+        log.info("buscando todas as categorias");
         return repository.findAll();
     }
 
     @PostMapping("/categorias")
-    public ResponseEntity<Categoria> create(@RequestBody Categoria categoria) {
+    public ResponseEntity<Categoria> create(@RequestBody @Valid Categoria categoria) {
         log.info("cadastrando categoria - " + categoria);
         repository.save(categoria);
         return ResponseEntity.status(HttpStatus.CREATED).body(categoria);
@@ -57,7 +59,7 @@ public class CategoriaController {
     }
 
     @PutMapping("/categorias/{id}")
-    public ResponseEntity<Categoria> update(@PathVariable Long id, @RequestBody Categoria categoria){
+    public ResponseEntity<Categoria> update(@PathVariable Long id, @RequestBody @Valid Categoria categoria){
         log.info("atualizando dados da categoria com id " + id);
         getCategoriaById(id);
         categoria.setId(id);
