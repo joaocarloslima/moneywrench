@@ -25,12 +25,13 @@ public class DatabaseSeeder implements CommandLineRunner {
     private Categoria alimentacao = new Categoria(null, "Alimentação", "shopping-cart");
     private Categoria lazer = new Categoria(null, "Lazer", "trophy");
     private Categoria moradia = new Categoria(null, "Moradia", "home");
+    private Categoria educacao = new Categoria(null, "Educação", "graduate");
 
     @Override
     public void run(String... args) throws Exception {
 
         categoriaRepository.saveAll(
-                List.of(alimentacao, lazer, moradia));
+                List.of(alimentacao, lazer, moradia, educacao));
 
         movimentacaoRepository.saveAll(
                 List.of(
@@ -44,9 +45,39 @@ public class DatabaseSeeder implements CommandLineRunner {
                         new Movimentacao()
                                 .withDescricao("Burguer Especial")
                                 .withValor(BigDecimal.valueOf(40))
-                                .withData(LocalDate.now().minusDays(1))
+                                .withData(LocalDate.now().minusDays(17))
                                 .withTipo("DEBITO")
-                                .withCategoria(alimentacao))
+                                .withCategoria(alimentacao),
+
+                        new Movimentacao()
+                                .withDescricao("Faculdade")
+                                .withValor(BigDecimal.valueOf(1000))
+                                .withData(LocalDate.now().minusDays(14))
+                                .withTipo("DEBITO")
+                                .withCategoria(educacao),
+
+                        new Movimentacao()
+                                .withDescricao("Cinema")
+                                .withValor(BigDecimal.valueOf(45))
+                                .withData(LocalDate.now().minusDays(16))
+                                .withTipo("DEBITO")
+                                .withCategoria(lazer),
+                        
+                        new Movimentacao()
+                                .withDescricao("Mc Donalds")
+                                .withValor(BigDecimal.valueOf(55))
+                                .withData(LocalDate.now().minusDays(15))
+                                .withTipo("DEBITO")
+                                .withCategoria(alimentacao),
+
+                        new Movimentacao()
+                                .withDescricao("internet")
+                                .withValor(BigDecimal.valueOf(99))
+                                .withData(LocalDate.now().minusDays(10))
+                                .withTipo("DEBITO")
+                                .withCategoria(moradia)
+                                
+                )
         );
 
     }
